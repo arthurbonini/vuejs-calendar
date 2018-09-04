@@ -9,17 +9,13 @@ Object.defineProperty(Vue.prototype, '$moment', {get() {return this.$root.moment
 
 import App from './components/App.vue';
 
-let events = [];
-if (window.__INITIAL_STATE__) {
-  events = window.__INITIAL_STATE__.map(event => {
-    return {
-      description: event.description,
-      date: moment(event.date)
-    };
-  });
-}
-
-let initialState = Object.assign({}, store.state, { events });
+let events = window.__INITIAL_STATE__.map(event => {
+  return {
+    description: event.description,
+    date: moment(event.date)
+  };
+});
+let initialState = Object.assign({}, store.state, { events: window.__INITIAL_STATE__ });
 store.replaceState(initialState);
 
 new Vue({
